@@ -1,2 +1,1 @@
-# ReactivitiesMongoDB
-This Project is an sample for implementing MongoDB (Mongo C# Driver).
+This is small project to learn React.ts, using .net api as backend 
