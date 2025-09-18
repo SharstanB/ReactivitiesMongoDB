@@ -4,11 +4,11 @@ using Domain.CoreServices;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Services.DBServices;
 
 namespace Application.Repositories
 {
-    public class CategoryRepository(AppDBContext appDBContext) : IRepositoty<Category>
+    public class CategoryRepository(MongoDBService appDBContext) : IRepositoty<Category>
     {
         public Task<OperationResult<Guid>> Add(Category entity, CancellationToken cancellationToken)
         {

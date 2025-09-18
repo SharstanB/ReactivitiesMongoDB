@@ -23,9 +23,7 @@ namespace Application.DataTransferObjects.Activity
 
         public double Longitude { get; set; }
 
-        public required string CategoryId { get; set; }
-
-        public required string CategoryName { get; set; }
+        public string Category { get; set; }
 
     
     }

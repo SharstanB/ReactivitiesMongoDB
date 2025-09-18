@@ -24,12 +24,11 @@ namespace Application.Activities.Queries
                     Data = new GetActivitiesDTO()
                     {
                         City = data.City,
-                        CategoryName = data.Category.Name,
+                        Category = data.Category.Name,
                         Date = data.Date,
                         Description = data.Description,
                         Id = data.Id.ToString(),
                         Title = data.Title,
-                        CategoryId =  data.CategoryId.ToString(),
                         Venue = data.Venue,
                         Latitude = data.Latitude,
                         Longitude = data.Longitude,

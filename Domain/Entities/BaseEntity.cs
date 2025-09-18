@@ -1,29 +1,31 @@
 ﻿using Domain.Absractions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Entities
 {
 
     public interface IBaseEntity : ISoftDeletable
     {
-        [Key]
-        Guid Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        string Id { get; set; }
+
+        [BsonRepresentation(BsonType.DateTime)]
         DateTime CreatedAt { get; set; } 
 
     }
     public abstract class BaseEntity  : IBaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? DeletedAt { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
-       
+        [BsonRepresentation(BsonType.DateTime)]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [BsonRepresentation(BsonType.DateTime)]
+        public DateTime? DeletedAt { get; set; }
 
     }
 

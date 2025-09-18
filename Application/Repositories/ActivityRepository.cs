@@ -3,13 +3,13 @@ using Domain.CoreServices;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Services.DBServices;
 
 namespace Application.Repositories
 {
     public class ActivityRepository : Repository<Activity>, IRepositoty<Activity>
     {
-        public ActivityRepository(AppDBContext appDBContext) : base(appDBContext)
+        public ActivityRepository(MongoDBService appDBContext) : base(appDBContext)
         {
         }
 
@@ -43,8 +43,6 @@ namespace Application.Repositories
                 activityToEdit.Latitude = activity.Latitude;
                 activityToEdit.Longitude = activity.Longitude;
                 activityToEdit.Category = activity.Category;
-                activityToEdit.CategoryId = activity.CategoryId;
-                activityToEdit.City = activity.City;
                 activityToEdit.City = activity.City;
                 _appDBContext.Activities.Update(activityToEdit);
                 result =  await SaveDataChanges<Guid>(activity, cancellationToken);

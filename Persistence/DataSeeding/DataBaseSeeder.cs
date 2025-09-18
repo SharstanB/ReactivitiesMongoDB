@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Persistence;
 using Persistence.IdentityEnitities;
+using Persistence.Services.DBServices;
 
 namespace API
 {
@@ -26,7 +26,7 @@ namespace API
             var services = scope.ServiceProvider;
             try
             {
-                var context = services.GetRequiredService<AppDBContext>();
+                var context = services.GetRequiredService<MongoDBService>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 await context.Database.MigrateAsync();
                 await StartSeeding(context, userManager);
@@ -40,7 +40,7 @@ namespace API
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-        public static async Task StartSeeding(AppDBContext context, UserManager<AppUser> userManager)
+        public static async Task StartSeeding(MongoDBService context, UserManager<AppUser> userManager)
         {
             if (!userManager.Users.Any())
             {
@@ -79,7 +79,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(-2),
                     Description = "Activity 2 months ago",
                     Category = categories[Random.Shared.Next(catergoriesCount)],
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City ="London",
                     Venue = "Pub",
                 }, new Activity()
@@ -88,7 +87,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(-1),
                     Description = "Activity 1 month ago",
                     Category =categories[Random.Shared.Next(catergoriesCount)] ,
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =  "Paris",
                     Venue = "Cinema",
                 }, new Activity()
@@ -97,7 +95,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(1),
                     Description = "Activity 1 month in future",
                     Category =categories[Random.Shared.Next(catergoriesCount)] ,
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =  "Aleppo",
                 }, new Activity()
                 {
@@ -105,7 +102,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(2),
                     Description = "Activity 2 months in future",
                     Category =categories[Random.Shared.Next(catergoriesCount)] ,
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =  "Hama",
                     Venue = "Park",
                 }, new Activity()
@@ -114,7 +110,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(3),
                     Description = "Activity 3 months in future",
                     Category =categories[Random.Shared.Next(catergoriesCount)] ,
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =   "Homs",
                     Venue = "Pub",
                 }, new Activity()
@@ -123,7 +118,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(4),
                     Description = "Activity 4 months in future",
                     Category =categories[Random.Shared.Next(catergoriesCount)] ,
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =  "Istanbul",
                     Venue = "Pub",
                 }, new Activity()
@@ -132,7 +126,6 @@ namespace API
                     Date = DateTime.UtcNow.AddMonths(5),
                     Description = "Activity 5 months in future",
                     Category = categories[Random.Shared.Next(catergoriesCount)],
-                    CategoryId = categories[Random.Shared.Next(catergoriesCount)].Id,
                     City =  "Erbil",
                     Venue = "Pub",
                 }
@@ -142,7 +135,7 @@ namespace API
 
         }
 
-        public static async Task SeedCity(AppDBContext context)
+        public static async Task SeedCity(MongoDBService context)
         {
             if (context.Cities.Any()) return;
             var cities = new List<City>()
@@ -173,7 +166,7 @@ namespace API
             await context.SaveChangesAsync();
         }
 
-        public static async Task SeedCategory(AppDBContext context)
+        public static async Task SeedCategory(MongoDBService context)
         {
             if (context.Categories.Any()) return;
             var categories = new List<Category>()

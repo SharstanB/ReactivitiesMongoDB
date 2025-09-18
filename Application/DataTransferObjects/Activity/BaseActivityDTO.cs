@@ -15,6 +15,6 @@
 
         public double Longitude { get; set; }
 
-        public Guid CategoryId { get; set; }
+        public string Category{ get; set; }
     }
 }

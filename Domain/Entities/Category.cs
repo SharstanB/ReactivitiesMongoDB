@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Entities
 {
     public class Category : BaseEntity
     {
+        [BsonRepresentation(BsonType.String)]
         public required string Name { get; set; }
-        public  Collection<Activity>? Activities { get; set; }
 
     }
 }

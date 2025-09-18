@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistence.IdentityEnitities;
 
-namespace Persistence.Services
+namespace Persistence.Services.DBServices
 {
-    public class IdentityService(SignInManager<AppUser> signInManager, AppDBContext dbContext,
+    public class IdentityService(SignInManager<AppUser> signInManager, MongoDBService dbContext,
         UserManager<AppUser> userManager, IAuthTokenProcessor authTokenProcessor, IDeviceContext deviceContext,
         ITokenBlacklistService tokenBlacklistService) : IIdentityService
     {

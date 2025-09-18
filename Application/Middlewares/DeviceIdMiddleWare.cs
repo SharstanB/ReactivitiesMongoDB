@@ -1,7 +1,7 @@
 ﻿using Domain.Absractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Services.DBServices;
 using System.Security.Claims;
 
 
@@ -14,7 +14,7 @@ namespace Application.Middlewares
         public DeviceIdMiddleWare(RequestDelegate next) => _next = next;
           
         public async Task InvokeAsync(HttpContext context, IDeviceContext deviceContext, 
-            AppDBContext appDBContext, ITokenBlacklistService blacklistService)
+            MongoDBService appDBContext, ITokenBlacklistService blacklistService)
         {
             var path = context.Request.Path.Value?.ToLowerInvariant();
 

@@ -14,9 +14,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Persistence;
+using Persistence.Helpers;
 using Persistence.IdentityEnitities;
 using Persistence.Services;
+using Persistence.Services.DBServices;
 using Persistence.Services.JWTService.Options;
 using Persistence.Services.JWTService.Processors;
 using System.Text;
@@ -37,15 +38,14 @@ builder.Services.AddControllers(
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-})
-.AddEntityFrameworkStores<AppDBContext>();
+//builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
+//{
+//    options.User.RequireUniqueEmail = true;
+//})
+//.AddEntityFrameworkStores<MongoDBService>();
 
 
-builder.Services.AddDbContext<AppDBContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("MongoDatabase"));
 
 builder.Services.Configure<JWTOptions>(
              builder.Configuration.GetSection(JWTOptions.JWTOptionsKey));
@@ -79,6 +79,7 @@ builder.Services.AddAuthentication(option =>
         }
     };
 });
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddHttpContextAccessor();

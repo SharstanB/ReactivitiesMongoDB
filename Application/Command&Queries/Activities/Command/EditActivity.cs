@@ -22,7 +22,7 @@ namespace Application.Activities.Command
                     Venue = command.Activity.Venue,
                     Latitude = command.Activity.Latitude,
                     Longitude = command.Activity.Longitude,
-                    CategoryId = command.Activity.CategoryId,
+                    Category = new Category { Name = command.Activity.Category },
                     Description = command.Activity.Description,
                     Title = command.Activity.Title,
                     Date = command.Activity.Date,

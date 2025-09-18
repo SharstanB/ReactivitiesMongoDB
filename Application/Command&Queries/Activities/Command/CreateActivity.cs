@@ -40,7 +40,7 @@ namespace Application.Activities.Command
                     Venue = request.Activity.Venue,
                     Latitude = request.Activity.Latitude,
                     Longitude = request.Activity.Longitude,
-                    CategoryId = request.Activity.CategoryId,
+                    Category = new Category { Name = request.Activity.Category },
                     Description = request.Activity.Description,
                     Title = request.Activity.Title,
                     Date = request.Activity.Date.ToUniversalTime(),

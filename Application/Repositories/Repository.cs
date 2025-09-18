@@ -1,15 +1,15 @@
 ﻿using Domain.Absractions;
 using Domain.CoreServices;
 using Domain.Enums;
-using Persistence;
+using Persistence.Services.DBServices;
 
 namespace Application.Repositories
 {
     public class Repository<T>
         where T : class, ISoftDeletable
     {
-        protected readonly AppDBContext _appDBContext;
-        public Repository(AppDBContext appDBContext)
+        protected readonly MongoDBService _appDBContext;
+        public Repository(MongoDBService appDBContext)
         {
             _appDBContext = appDBContext;
         }
